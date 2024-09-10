@@ -1,4 +1,4 @@
-FROM php:8.1-fpm as api
+FROM php:8.3-fpm as api
 
 WORKDIR /usr/src
 
