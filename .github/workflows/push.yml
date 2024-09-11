@@ -18,7 +18,7 @@ jobs:
   build-backend-images:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: ./.github/workflows/jobs/build-backend-images
         with:
           dockerhub-username: ${{ secrets.DOCKERHUB_USERNAME }}
@@ -27,7 +27,7 @@ jobs:
   build-mysql:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: ./.github/workflows/jobs/build-mysql
         with:
           dockerhub-username: ${{ secrets.DOCKERHUB_USERNAME }}
@@ -38,7 +38,7 @@ jobs:
     needs: [build-backend-images, build-mysql]
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: ./.github/workflows/jobs/analyze
         with:
           dockerhub-username: ${{ secrets.DOCKERHUB_USERNAME }}
@@ -48,7 +48,7 @@ jobs:
     needs: [ build-backend-images, build-mysql ]
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: ./.github/workflows/jobs/test
         with:
           dockerhub-username: ${{ secrets.DOCKERHUB_USERNAME }}
@@ -59,7 +59,7 @@ jobs:
     runs-on: ubuntu-latest
     if: ${{ always() && contains(needs.*.result, 'failure') }}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: ./.github/workflows/jobs/remove-images
         with:
           dockerhub-username: ${{ secrets.DOCKERHUB_USERNAME }}
@@ -70,7 +70,7 @@ jobs:
     needs: [ analyze, test ]
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: ./.github/workflows/jobs/build-nginx
         with:
           dockerhub-username: ${{ secrets.DOCKERHUB_USERNAME }}
@@ -80,7 +80,7 @@ jobs:
     needs: [ analyze, test ]
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: ./.github/workflows/jobs/build-proxy
         with:
           dockerhub-username: ${{ secrets.DOCKERHUB_USERNAME }}
@@ -90,7 +90,7 @@ jobs:
     needs: [ analyze, test]
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: ./.github/workflows/jobs/build-frontend
         if: ${{ github.ref == 'refs/heads/main' }}
         with:
@@ -107,7 +107,7 @@ jobs:
     if: github.ref == 'refs/heads/develop'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: ./.github/workflows/jobs/deploy
         with:
           ssh-key: ${{ secrets.SSH_KEY }}
@@ -124,7 +124,7 @@ jobs:
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: ./.github/workflows/jobs/deploy
         with:
           ssh-key: ${{ secrets.SSH_KEY }}
