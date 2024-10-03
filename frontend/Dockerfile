@@ -12,7 +12,7 @@ CMD ["npm", "run", "serve"]
 FROM base AS build
 RUN npm run build
 
-FROM nginx:1.25.1 AS prod
+FROM nginx:1.27.2 AS prod
 COPY --from=build /usr/src/dist /usr/share/nginx/html
 COPY ./deployment/config/nginx-frontend.conf /etc/nginx/nginx.conf
 COPY ./api/wait-for-it.sh /usr/wait-for-it.sh
