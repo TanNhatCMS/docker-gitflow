@@ -1,4 +1,4 @@
-FROM nginx:1.25.1
+FROM nginx:1.31.4
 
 COPY ./deployment/config/proxy.conf /etc/nginx/nginx.conf
 COPY ./api/wait-for-it.sh /usr/wait-for-it.sh
